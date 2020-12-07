@@ -42,7 +42,9 @@ rookie1  %>%
     subtitle = paste0("Rozkład liczby punktów, grupa ROOKIE, liczebność próbki = ",
                       rookie1 %>% nrow()),
     caption = "źródło: https://pixchallenge.org/eliminacje-rookie/",
-    y = "liczebność")
+    y = "liczebność") 
+
+ggsave("output/rookie1.png")
 ```
 
 ### grupa SKILLED
@@ -67,6 +69,8 @@ skilled1  %>%
                       skilled1 %>% nrow()),
     caption = "źródło: https://pixchallenge.org/eliminacje-skilled/",
     y = "liczebność")
+
+ggsave("output/skilled1.png")
 ```
 
 ### grupa MASTER
@@ -91,6 +95,8 @@ master1  %>%
                       master1 %>% nrow()),
     caption = "źródło: https://pixchallenge.org/eliminacje-master/",
     y = "liczebność")
+
+ggsave("output/master1.png")
 ```
 
 
@@ -120,6 +126,8 @@ rookie2  %>%
     caption = "źródło: https://pixchallenge.org/polfinaly-rookie/",
     y = "liczebność")
 
+ggsave("output/rookie2.png")
+
 rookie2 %>%
   ggplot(aes(czas, punkty, col = wynik)) +
   geom_point() +
@@ -128,6 +136,8 @@ rookie2 %>%
     subtitle = paste0("Liczba punktów vs czas, grupa ROOKIE, liczebność próbki = ",
                       rookie2 %>% nrow()),
     caption = "źródło: https://pixchallenge.org/polfinaly-rookie/")
+
+ggsave("output/rookie2a.png")
 ```
 
 
@@ -155,6 +165,8 @@ skilled2  %>%
     caption = "źródło: https://pixchallenge.org/polfinaly-skilled/",
     y = "liczebność")
 
+ggsave("output/skilled2.png")
+
 skilled2 %>%
   ggplot(aes(czas, punkty, col = wynik)) +
   geom_point() +
@@ -163,6 +175,8 @@ skilled2 %>%
     subtitle = paste0("Liczba punktów vs czas, grupa SKILLED, liczebność próbki = ",
                       rookie2 %>% nrow()),
     caption = "źródło: https://pixchallenge.org/polfinaly-skilled/")
+
+ggsave("output/skilled2a.png")
 ```
 
 ### grupa MASTER
@@ -189,6 +203,8 @@ master2  %>%
     caption = "źródło: https://pixchallenge.org/polfinaly-master/",
     y = "liczebność")
 
+ggsave("output/master2.png")
+
 master2 %>%
   ggplot(aes(czas, punkty, col = wynik)) +
   geom_point() +
@@ -197,4 +213,6 @@ master2 %>%
     subtitle = paste0("Liczba punktów vs czas, grupa MASTER, liczebność próbki = ",
                       master2 %>% nrow()),
     caption = "źródło: https://pixchallenge.org/polfinaly-master/")
+
+ggsave("output/master2a.png")
 ```
