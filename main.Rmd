@@ -1,0 +1,200 @@
+---
+title: "Pix Programming Challenge PL 2020"
+author: "Paweł Sakowski, `pawelsakowski@gmail.com`"
+date: "`r Sys.time()`"
+output: 
+  html_document:  
+    theme: spacelab
+    highlight: tango
+    toc: true
+    toc_float:
+      collapsed: false
+    smooth_scroll: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+## ELIMINACJE
+
+### grupa ROOKIE
+
+```{r}
+rookie1 <-
+  "https://pixchallenge.org/eliminacje-rookie/" %>%
+  xml2::read_html() %>%
+  rvest::html_table() %>%
+  .[[1]] %>% 
+  as_tibble() %>%
+  mutate(wynik = as_factor(Półfnały)) %>%
+  rename(punkty = Punkty) %>%
+  select(-Półfnały)
+
+rookie1  %>%
+  ggplot(aes(punkty, fill= wynik)) +
+  geom_histogram(alpha = 0.5, binwidth = 1, color = "grey20") +
+  labs(
+    title = "Pix Programming Challenge PL 2020, ELIMINACJE",
+    subtitle = paste0("Rozkład liczby punktów, grupa ROOKIE, liczebność próbki = ",
+                      rookie1 %>% nrow()),
+    caption = "źródło: https://pixchallenge.org/eliminacje-rookie/",
+    y = "liczebność")
+```
+
+### grupa SKILLED
+
+```{r}
+skilled1 <-
+  "https://pixchallenge.org/eliminacje-skilled/" %>%
+  xml2::read_html() %>%
+  rvest::html_table() %>%
+  .[[1]] %>% 
+  as_tibble() %>%
+  rename(punkty = Punkty) %>%
+  mutate(wynik = as_factor(Półfnały)) %>%
+  select(-Półfnały)
+
+skilled1  %>%
+  ggplot(aes(punkty, fill= wynik)) +
+  geom_histogram(alpha = 0.5, binwidth = 1, color = "grey20") +
+  labs(
+    title = "Pix Programming Challenge PL 2020, ELIMINACJE",
+    subtitle = paste0("Rozkład liczby punktów, grupa SKILLED, liczebność próbki = ",
+                      skilled1 %>% nrow()),
+    caption = "źródło: https://pixchallenge.org/eliminacje-skilled/",
+    y = "liczebność")
+```
+
+### grupa MASTER
+
+```{r}
+master1 <-
+  "https://pixchallenge.org/eliminacje-master/" %>%
+  xml2::read_html() %>%
+  rvest::html_table() %>%
+  .[[1]] %>% 
+  as_tibble() %>%
+  rename(punkty = Punkty) %>%
+  mutate(wynik = as_factor(Półfnały)) %>%
+  select(-Półfnały)
+
+master1  %>%
+  ggplot(aes(punkty, fill= wynik)) +
+  geom_histogram(alpha = 0.5, binwidth = 1, color = "grey20") +
+  labs(
+    title = "Pix Programming Challenge PL 2020, ELIMINACJE",
+    subtitle = paste0("Rozkład liczby punktów, grupa MASTER, liczebność próbki = ",
+                      master1 %>% nrow()),
+    caption = "źródło: https://pixchallenge.org/eliminacje-master/",
+    y = "liczebność")
+```
+
+
+## PÓŁFINAŁY 
+
+### grupa ROOKIE
+
+```{r}
+rookie2 <-
+  "https://pixchallenge.org/polfinaly-rookie/" %>%
+  xml2::read_html() %>%
+  rvest::html_table() %>%
+  .[[1]] %>% 
+  as_tibble() %>%
+  mutate(czas = hms::as_hms(Czas)) %>% 
+  mutate(wynik = as_factor(Finały)) %>%
+  rename(punkty = Punkty) %>%
+  select(-Finały, -Czas) 
+
+rookie2  %>%
+  ggplot(aes(punkty, fill= wynik)) +
+  geom_histogram(alpha = 0.5, binwidth = 1, color = "grey20") +
+  labs(
+    title = "Pix Programming Challenge PL 2020, PÓŁFINAŁY",
+    subtitle = paste0("Rozkład liczby punktów, grupa ROOKIE, liczebność próbki = ",
+                      rookie2 %>% nrow()),
+    caption = "źródło: https://pixchallenge.org/polfinaly-rookie/",
+    y = "liczebność")
+
+rookie2 %>%
+  ggplot(aes(czas, punkty, col = wynik)) +
+  geom_point() +
+  labs(
+    title = "Pix Programming Challenge PL 2020, PÓŁFINAŁY",
+    subtitle = paste0("Liczba punktów vs czas, grupa ROOKIE, liczebność próbki = ",
+                      rookie2 %>% nrow()),
+    caption = "źródło: https://pixchallenge.org/polfinaly-rookie/")
+```
+
+
+### grupa SKILLED
+
+```{r}
+skilled2 <-
+  "https://pixchallenge.org/polfinaly-skilled/" %>%
+  xml2::read_html() %>%
+  rvest::html_table() %>%
+  .[[1]] %>% 
+  as_tibble() %>%
+  mutate(czas = hms::as_hms(Czas)) %>% 
+  mutate(wynik = as_factor(Finały)) %>%
+  rename(punkty = Punkty) %>%
+  select(-Finały, -Czas) 
+
+skilled2  %>%
+  ggplot(aes(punkty, fill= wynik)) +
+  geom_histogram(alpha = 0.5, binwidth = 1, color = "grey20") +
+  labs(
+    title = "Pix Programming Challenge PL 2020, PÓŁFINAŁY",
+    subtitle = paste0("Rozkład liczby punktów, grupa SKILLED, liczebność próbki = ",
+                      skilled2 %>% nrow()),
+    caption = "źródło: https://pixchallenge.org/polfinaly-skilled/",
+    y = "liczebność")
+
+skilled2 %>%
+  ggplot(aes(czas, punkty, col = wynik)) +
+  geom_point() +
+  labs(
+    title = "Pix Programming Challenge PL 2020, PÓŁFINAŁY",
+    subtitle = paste0("Liczba punktów vs czas, grupa SKILLED, liczebność próbki = ",
+                      rookie2 %>% nrow()),
+    caption = "źródło: https://pixchallenge.org/polfinaly-skilled/")
+```
+
+### grupa MASTER
+
+```{r}
+master2 <-
+  "https://pixchallenge.org/polfinaly-master/" %>%
+  xml2::read_html() %>%
+  rvest::html_table() %>%
+  .[[1]] %>% 
+  as_tibble() %>%
+  mutate(czas = hms::as_hms(Czas)) %>% 
+  mutate(wynik = as_factor(Finały)) %>%
+  rename(punkty = Punkty) %>%
+  select(-Finały, -Czas) 
+
+master2  %>%
+  ggplot(aes(punkty, fill= wynik)) +
+  geom_histogram(alpha = 0.5, binwidth = 1, color = "grey20") +
+  labs(
+    title = "Pix Programming Challenge PL 2020, PÓŁFINAŁY",
+    subtitle = paste0("Rozkład liczby punktów, grupa MASTER, liczebność próbki = ",
+                      master2 %>% nrow()),
+    caption = "źródło: https://pixchallenge.org/polfinaly-master/",
+    y = "liczebność")
+
+master2 %>%
+  ggplot(aes(czas, punkty, col = wynik)) +
+  geom_point() +
+  labs(
+    title = "Pix Programming Challenge PL 2020, PÓŁFINAŁY",
+    subtitle = paste0("Liczba punktów vs czas, grupa MASTER, liczebność próbki = ",
+                      master2 %>% nrow()),
+    caption = "źródło: https://pixchallenge.org/polfinaly-master/")
+```
